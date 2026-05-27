@@ -25,7 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/mlm/css/mlm.css"
+app_include_css = "/assets/mlm/css/mlm.css"
 # app_include_js = "/assets/mlm/js/mlm.js"
 
 # include js, css files in header of web template
@@ -247,3 +247,28 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+# Document Events
+doc_events = {
+	"Business Transaction": {
+		"on_submit": "mlm.distributor.doctype.distributor.distributor.on_business_transaction_submit",
+	},
+}
+
+# Scheduled Tasks
+scheduler_events = {
+	"daily": [
+		"mlm.tasks.run_daily_rank_check",
+	],
+	"weekly": [
+		"mlm.tasks.run_weekly_roi_payout",
+	],
+	"cron": {
+		"0 0 1 * *": [
+			"mlm.commission.doctype.commission_period.commission_period.create_commission_period",
+		],
+		"0 23 28-31 * *": [
+			"mlm.commission.doctype.commission_period.commission_period.close_commission_period",
+		],
+	},
+}

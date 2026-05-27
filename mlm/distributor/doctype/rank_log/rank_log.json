@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-22 15:09:13.935749",
+ "custom": 1,
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "distributor",
+  "old_rank",
+  "new_rank",
+  "change_type",
+  "personal_pv",
+  "team_bv",
+  "triggered_by",
+  "date",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "distributor",
+   "fieldtype": "Link",
+   "label": "Distributor",
+   "options": "Distributor"
+  },
+  {
+   "fieldname": "old_rank",
+   "fieldtype": "Link",
+   "label": "Old Rank",
+   "options": "Rank"
+  },
+  {
+   "fieldname": "new_rank",
+   "fieldtype": "Link",
+   "label": "New Rank",
+   "options": "Rank"
+  },
+  {
+   "fieldname": "change_type",
+   "fieldtype": "Select",
+   "label": "Change Type",
+   "options": "Promotion\nDemotion"
+  },
+  {
+   "fieldname": "personal_pv",
+   "fieldtype": "Float",
+   "label": "Personal PV"
+  },
+  {
+   "fieldname": "team_bv",
+   "fieldtype": "Float",
+   "label": "Team BV"
+  },
+  {
+   "fieldname": "triggered_by",
+   "fieldtype": "Select",
+   "label": "Triggered By",
+   "options": "Transaction\nPeriod Closing"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-22 15:14:44.970876",
+ "modified_by": "admin@beam.com",
+ "module": "Distributor",
+ "name": "Rank Log",
+ "owner": "admin@beam.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

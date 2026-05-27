@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Payouts</title>
+	<style>
+		body { font-family: Arial; padding: 30px; background: #f5f5f5; }
+		h1 { text-align: center; margin-bottom: 30px; }
+		.card {
+			background: white;
+			border-radius: 12px;
+			padding: 20px;
+			box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+		}
+		table { width: 100%; border-collapse: collapse; }
+		th { background: #f0f0f0; padding: 12px; text-align: left; font-size: 13px; }
+		td { padding: 12px; border-bottom: 1px solid #eee; font-size: 13px; }
+		.badge {
+			padding: 4px 10px;
+			border-radius: 20px;
+			font-size: 12px;
+			display: inline-block;
+		}
+		.badge-paid { background: #e8f5e9; color: #2e7d32; }
+		.badge-pending { background: #fff3e0; color: #e65100; }
+		.badge-cancelled { background: #ffebee; color: #c62828; }
+		.error { text-align: center; color: red; font-size: 18px; margin-top: 50px; }
+	</style>
+</head>
+<body>
+
+	<h1>🏦 My Payouts</h1>
+	{% if error %}
+		<div class="error">{{ error }}</div>
+	{% else %}
+	<div class="card">
+		<h3 style="margin-bottom:15px;">Payout History — {{ distributor_name }}</h3>
+		{% if payouts %}
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Date</th>
+					<th>Request Amount</th>
+					<th>Charges</th>
+					<th>Net Amount</th>
+					<th>Method</th>
+					<th>Status</th>
+					<th>Approved On</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for p in payouts %}
+				<tr>
+					<td>{{ p.name }}</td>
+					<td>{{ p.request_date }}</td>
+					<td>₹{{ p.request_amount }}</td>
+					<td>₹{{ p.charges or 0 }}</td>
+					<td>₹{{ p.net_amount or 0 }}</td>
+					<td>{{ p.payout_method }}</td>
+					<td>
+						<span class="badge badge-{{ p.status.lower() }}">
+							{{ p.status }}
+						</span>
+					</td>
+					<td>{{ p.approved_on or "-" }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+			<p style="text-align:center; color:#888;">No payouts yet.</p>
+		{% endif %}
+	</div>
+	{% endif %}
+
+</body>
+</html>

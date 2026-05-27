@@ -1,0 +1,18 @@
+/* Hide Comments and Activity */
+.form-footer {
+    display: none !important;
+}
+
+/* Hide scroll to top button */
+.scroll-to-top {
+    display: none !important;
+}
+
+/* Hide default sidebar items — show only our custom content */
+.form-sidebar .assigned-to,
+.form-sidebar .document-share-key,
+.form-sidebar .sidebar-tags,
+.form-sidebar .attachments-section,
+.form-sidebar .followed-by-section {
+    display: none !important;
+}

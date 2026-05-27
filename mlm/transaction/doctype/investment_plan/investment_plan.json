@@ -1,0 +1,21 @@
+{
+ "name": "Investment Plan",
+ "module": "Transaction",
+ "doctype": "DocType",
+ "is_submittable": 0,
+ "track_changes": 1,
+ "autoname": "field:plan_name",
+ "title_field": "plan_name",
+ "fields": [
+  {"fieldname": "plan_name", "label": "Plan Name", "fieldtype": "Data", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "investment_amount", "label": "Investment Amount", "fieldtype": "Currency", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "col_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "roi_percent", "label": "ROI Percent", "fieldtype": "Percent", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "duration_days", "label": "Duration Days", "fieldtype": "Int", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "col_break_2", "fieldtype": "Column Break"},
+  {"fieldname": "is_active", "label": "Is Active", "fieldtype": "Check", "default": 1}
+ ],
+ "permissions": [
+  {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+ ]
+}

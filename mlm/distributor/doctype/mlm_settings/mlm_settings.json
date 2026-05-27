@@ -1,0 +1,117 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "app": " mlm",
+ "creation": "2026-05-21 13:24:26.200837",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company_name",
+  "plan_type",
+  "col_break_1",
+  "currency",
+  "max_depth",
+  "section_bonus",
+  "default_direct_bonus",
+  "col_break_2",
+  "binary_pair_ratio",
+  "allow_spillover",
+  "roi_frequency",
+  "min_investment"
+ ],
+ "fields": [
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Company Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plan_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Plan Type",
+   "options": "Binary\nUnilevel\nMatrix",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "max_depth",
+   "fieldtype": "Int",
+   "label": "Max Depth"
+  },
+  {
+   "fieldname": "section_bonus",
+   "fieldtype": "Section Break",
+   "label": "Bonus Settings"
+  },
+  {
+   "fieldname": "default_direct_bonus",
+   "fieldtype": "Percent",
+   "label": "Default Direct Bonus"
+  },
+  {
+   "fieldname": "col_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "binary_pair_ratio",
+   "fieldtype": "Data",
+   "label": "Binary Pair Ratio"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_spillover",
+   "fieldtype": "Check",
+   "label": "Allow Spillover"
+  },
+  {
+   "fieldname": "roi_frequency",
+   "fieldtype": "Select",
+   "label": "ROI Payment Frequency",
+   "options": "Daily\nWeekly\nMonthly"
+  },
+  {
+   "fieldname": "min_investment",
+   "fieldtype": "Currency",
+   "label": "Minimum Investment"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-22 16:45:39.499239",
+ "modified_by": "Administrator",
+ "module": "Distributor",
+ "name": "MLM Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

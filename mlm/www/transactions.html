@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Transactions</title>
+	<style>
+		body { font-family: Arial; padding: 30px; background: #f5f5f5; }
+		h1 { text-align: center; margin-bottom: 30px; }
+		.card {
+			background: white;
+			border-radius: 12px;
+			padding: 20px;
+			box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+		}
+		table { width: 100%; border-collapse: collapse; }
+		th { background: #f0f0f0; padding: 12px; text-align: left; font-size: 13px; }
+		td { padding: 12px; border-bottom: 1px solid #eee; font-size: 13px; }
+		.badge {
+			padding: 4px 10px;
+			border-radius: 20px;
+			font-size: 12px;
+			display: inline-block;
+		}
+		.badge-paid { background: #e8f5e9; color: #2e7d32; }
+		.badge-draft { background: #fff3e0; color: #e65100; }
+		.badge-cancelled { background: #ffebee; color: #c62828; }
+		.error { text-align: center; color: red; font-size: 18px; margin-top: 50px; }
+	</style>
+</head>
+<body>
+
+	<h1>📄 My Transactions</h1>
+	{% if error %}
+		<div class="error">{{ error }}</div>
+	{% else %}
+	<div class="card">
+		<h3 style="margin-bottom:15px;">Business Transactions — {{ distributor_name }}</h3>
+		{% if transactions %}
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Date</th>
+					<th>Type</th>
+					<th>Amount</th>
+					<th>PV</th>
+					<th>BV</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for t in transactions %}
+				<tr>
+					<td>{{ t.name }}</td>
+					<td>{{ t.posting_date }}</td>
+					<td>{{ t.transaction_type }}</td>
+					<td>₹{{ t.amount }}</td>
+					<td>{{ t.pv }}</td>
+					<td>{{ t.bv }}</td>
+					<td>
+						<span class="badge badge-{{ t.status.lower() }}">
+							{{ t.status }}
+						</span>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+			<p style="text-align:center; color:#888;">No transactions yet.</p>
+		{% endif %}
+	</div>
+	{% endif %}
+
+</body>
+</html>

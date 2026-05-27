@@ -1,0 +1,191 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "DID-.####",
+ "creation": "2026-05-21 13:21:51.037870",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "distributor_name",
+  "user",
+  "col_break_1",
+  "sponsor",
+  "sponsor_name",
+  "placement_parent",
+  "leg_position",
+  "section_personal",
+  "mobile_number",
+  "email",
+  "country",
+  "col_break_2",
+  "join_date",
+  "status",
+  "current_rank",
+  "section_wallet",
+  "wallet_balance",
+  "is_active",
+  "kyc_details_section",
+  "distributor_kyc",
+  "total_investment",
+  "active_investment"
+ ],
+ "fields": [
+  {
+   "fieldname": "distributor_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Distributor Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sponsor",
+   "fieldtype": "Link",
+   "label": "Sponsor",
+   "options": "Distributor"
+  },
+  {
+   "fieldname": "placement_parent",
+   "fieldtype": "Link",
+   "label": "Placement Parent",
+   "options": "Distributor"
+  },
+  {
+   "fieldname": "leg_position",
+   "fieldtype": "Select",
+   "label": "Leg Position",
+   "options": "\nLeft\nRight"
+  },
+  {
+   "fieldname": "section_personal",
+   "fieldtype": "Section Break",
+   "label": "Personal Info"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "col_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "join_date",
+   "fieldtype": "Date",
+   "label": "Join Date"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nInactive\nBlocked"
+  },
+  {
+   "fieldname": "current_rank",
+   "fieldtype": "Link",
+   "label": "Current Rank",
+   "options": "Rank"
+  },
+  {
+   "fieldname": "section_wallet",
+   "fieldtype": "Section Break",
+   "label": "Wallet"
+  },
+  {
+   "fieldname": "wallet_balance",
+   "fieldtype": "Currency",
+   "label": "Wallet Balance",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "kyc_details_section",
+   "fieldtype": "Section Break",
+   "label": "KYC Details"
+  },
+  {
+   "fieldname": "distributor_kyc",
+   "fieldtype": "Table",
+   "label": "Distributor KYC",
+   "options": "Distributor KYC"
+  },
+  {
+   "fieldname": "total_investment",
+   "fieldtype": "Currency",
+   "label": "Total Investment"
+  },
+  {
+   "fieldname": "active_investment",
+   "fieldtype": "Currency",
+   "label": "Active Investment"
+  },
+  {
+   "fetch_from": "sponsor.distributor_name",
+   "fieldname": "sponsor_name",
+   "fieldtype": "Data",
+   "label": "Sponsor Name",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-26 12:24:38.367669",
+ "modified_by": "admin@beam.com",
+ "module": "Distributor",
+ "name": "Distributor",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "distributor_name,email,mobile_number",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "distributor_name",
+ "track_changes": 1
+}

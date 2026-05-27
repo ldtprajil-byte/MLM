@@ -1,0 +1,327 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"mlm_header_shortcuts\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>MLM Shortcuts</b></span>\",\"col\":12}},{\"id\":\"mlm_shortcut_distributor\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Distributor\",\"col\":3}},{\"id\":\"mlm_shortcut_network_node\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Network Node\",\"col\":3}},{\"id\":\"mlm_shortcut_business_transaction\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Transaction\",\"col\":3}},{\"id\":\"mlm_shortcut_commission_ledger\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Ledger\",\"col\":3}},{\"id\":\"mlm_shortcut_wallet\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Wallet\",\"col\":3}},{\"id\":\"mlm_shortcut_payout_request\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payout Request\",\"col\":3}},{\"id\":\"mlm_shortcut_rank\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rank\",\"col\":3}},{\"id\":\"mlm_shortcut_mlm_settings\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"MLM Settings\",\"col\":3}},{\"id\":\"mlm_spacer_1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mlm_header_all_doctypes\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>All MLM DocTypes</b></span>\",\"col\":12}},{\"id\":\"mlm_card_distributor\",\"type\":\"card\",\"data\":{\"card_name\":\"Distributor\",\"col\":4}},{\"id\":\"mlm_card_network\",\"type\":\"card\",\"data\":{\"card_name\":\"Network\",\"col\":4}},{\"id\":\"mlm_card_transaction\",\"type\":\"card\",\"data\":{\"card_name\":\"Transaction\",\"col\":4}},{\"id\":\"mlm_card_commission\",\"type\":\"card\",\"data\":{\"card_name\":\"Commission\",\"col\":4}},{\"id\":\"mlm_card_wallet\",\"type\":\"card\",\"data\":{\"card_name\":\"Wallet\",\"col\":4}},{\"id\":\"mlm_card_settings\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
+ "creation": "2026-05-26 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "organization",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "MLM",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Distributor",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Distributor",
+   "link_count": 0,
+   "link_to": "Distributor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Distributor KYC",
+   "link_count": 0,
+   "link_to": "Distributor KYC",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rank",
+   "link_count": 0,
+   "link_to": "Rank",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rank Log",
+   "link_count": 0,
+   "link_to": "Rank Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Network",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Network Node",
+   "link_count": 0,
+   "link_to": "Network Node",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Placement Log",
+   "link_count": 0,
+   "link_to": "Placement Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transaction",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Business Transaction",
+   "link_count": 0,
+   "link_to": "Business Transaction",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Investment Plan",
+   "link_count": 0,
+   "link_to": "Investment Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ROI Ledger",
+   "link_count": 0,
+   "link_to": "ROI Ledger",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Volume Ledger",
+   "link_count": 0,
+   "link_to": "Volume Ledger",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commission",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commission Ledger",
+   "link_count": 0,
+   "link_to": "Commission Ledger",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commission Period",
+   "link_count": 0,
+   "link_to": "Commission Period",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commission Plan",
+   "link_count": 0,
+   "link_to": "Commission Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Wallet",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Wallet",
+   "link_count": 0,
+   "link_to": "Wallet",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Wallet Transaction",
+   "link_count": 0,
+   "link_to": "Wallet Transaction",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payout Request",
+   "link_count": 0,
+   "link_to": "Payout Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tax Deduction",
+   "link_count": 0,
+   "link_to": "Tax Deduction",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "MLM Settings",
+   "link_count": 0,
+   "link_to": "MLM Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-05-26 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MLM",
+ "name": "MLM",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "label": "Distributor",
+   "link_to": "Distributor",
+   "type": "DocType"
+  },
+  {
+   "label": "Network Node",
+   "link_to": "Network Node",
+   "type": "DocType"
+  },
+  {
+   "label": "Business Transaction",
+   "link_to": "Business Transaction",
+   "type": "DocType"
+  },
+  {
+   "label": "Commission Ledger",
+   "link_to": "Commission Ledger",
+   "type": "DocType"
+  },
+  {
+   "label": "Wallet",
+   "link_to": "Wallet",
+   "type": "DocType"
+  },
+  {
+   "label": "Payout Request",
+   "link_to": "Payout Request",
+   "type": "DocType"
+  },
+  {
+   "label": "Rank",
+   "link_to": "Rank",
+   "type": "DocType"
+  },
+  {
+   "label": "MLM Settings",
+   "link_to": "MLM Settings",
+   "type": "DocType"
+  }
+ ],
+ "title": "MLM"
+}

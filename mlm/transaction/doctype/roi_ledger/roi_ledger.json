@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-22 15:16:17.030601",
+ "custom": 1,
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "distributor",
+  "source_transaction",
+  "investment_plan",
+  "roi_percent",
+  "roi_amount",
+  "posting_date",
+  "status",
+  "wallet_posted",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "distributor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Distributor",
+   "options": "Distributor",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_transaction",
+   "fieldtype": "Link",
+   "label": "Source Transaction",
+   "options": "Business Transaction"
+  },
+  {
+   "fieldname": "investment_plan",
+   "fieldtype": "Data",
+   "label": "Investment Plan"
+  },
+  {
+   "fieldname": "roi_percent",
+   "fieldtype": "Percent",
+   "label": "ROI Percent"
+  },
+  {
+   "fieldname": "roi_amount",
+   "fieldtype": "Currency",
+   "label": "ROI Amount"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Datetime",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nPosted\nCancelled"
+  },
+  {
+   "default": "0",
+   "fieldname": "wallet_posted",
+   "fieldtype": "Check",
+   "label": "Wallet Posted"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-22 15:20:11.442750",
+ "modified_by": "admin@beam.com",
+ "module": "Transaction",
+ "name": "ROI Ledger",
+ "owner": "admin@beam.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
