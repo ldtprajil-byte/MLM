@@ -23,33 +23,21 @@ frappe.ui.form.on("Distributor", {
 		frm.dashboard.add_section(`
 			<div class="mlm-dashboard-links" style="padding:10px;">
 
-				<!-- Stats Row - 4 expanded cards -->
-				<div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px;">
+				<!-- Stats Row -->
+				<div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:12px;">
 					<div style="background:#f8f9fa; border-radius:8px; padding:18px 20px;">
-						<div style="font-size:14px; color:#333; margin-bottom:8px;">💰 Wallet</div>
-						<div style="font-size:28px; font-weight:700; color:#2e7d32;">
+						<div style="font-size:19px; font-weight:700; color:#111; margin-bottom:8px;">💰 Wallet</div>
+						<div style="font-size:16px; font-weight:700; color:#888;">
 							₹${frm.doc.wallet_balance || 0}
 						</div>
 					</div>
 					<div style="background:#f8f9fa; border-radius:8px; padding:18px 20px;">
-						<div style="font-size:14px; color:#333; margin-bottom:8px;">🏆 Rank</div>
-						<div style="font-size:28px; font-weight:700; color:#1565c0;">
+						<div style="font-size:19px; font-weight:700; color:#111; margin-bottom:8px;">🏆 Rank</div>
+						<div style="font-size:16px; font-weight:700; color:#888;">
 							<a onclick="frappe.set_route('List','Rank Log',{distributor:'${frm.doc.name}'}); return false;" href="#"
-								style="color:#1565c0; text-decoration:none;">
+								style="color:#888; text-decoration:none;">
 								${frm.doc.current_rank || "STR"}
 							</a>
-						</div>
-					</div>
-					<div style="background:#f8f9fa; border-radius:8px; padding:18px 20px;">
-						<div style="font-size:14px; color:#333; margin-bottom:8px;">👥 Left</div>
-						<div style="font-size:28px; font-weight:700;">
-							${frm.doc.left_count || 0}
-						</div>
-					</div>
-					<div style="background:#f8f9fa; border-radius:8px; padding:18px 20px;">
-						<div style="font-size:14px; color:#333; margin-bottom:8px;">👥 Right</div>
-						<div style="font-size:28px; font-weight:700;">
-							${frm.doc.right_count || 0}
 						</div>
 					</div>
 				</div>

@@ -126,11 +126,16 @@ def create_commission_ledger(
 	if commission_amount <= 0:
 		return None
 
+	distributor_name = frappe.db.get_value("Distributor", distributor, "distributor_name")
+	source_distributor_name = frappe.db.get_value("Distributor", source_distributor, "distributor_name") if source_distributor else None
+
 	doc = frappe.get_doc(
 		{
 			"doctype": "Commission Ledger",
 			"distributor": distributor,
+			"distributor_name": distributor,
 			"source_distributor": source_distributor,
+			"source_distributor_name": source_distributor,
 			"source_transaction": source_transaction,
 			"commission_type": commission_type,
 			"status": "Pending",

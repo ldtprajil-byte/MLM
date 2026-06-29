@@ -160,7 +160,7 @@ def get_context(context):
 	context.business_pv_values = as_json(pv_values)
 	context.business_bv_values = as_json(bv_values)
 
-	commission_types = ["Direct", "Binary", "ROI", "Matching", "Generation"]
+	commission_types = ["Direct", "Binary"]
 	commission_type_values = [
 		sum(flt(c.commission_amount) for c in commissions if c.commission_type == item)
 		for item in commission_types
