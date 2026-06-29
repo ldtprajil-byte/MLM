@@ -12,10 +12,14 @@ class Distributor(Document):
 	def after_insert(self):
 		self.create_wallet()
 		self.create_network_node()
+		if self.sponsor:
+			process_binary_fast_start_bonus(self.sponsor)
 
 	def on_update(self):
 		if self.status == "Active":
 			check_and_update_rank(self.name)
+			if self.sponsor:
+				process_binary_fast_start_bonus(self.sponsor)
 
 	# ─── Validation ───────────────────────────────────────────────
 
@@ -168,7 +172,7 @@ def check_and_update_rank(distributor):
 	frappe.db.set_value("Distributor", distributor, "current_rank", qualified_rank)
 
 	# Create Rank Log
-	frappe.get_doc({
+	rank_log = frappe.get_doc({
 		"doctype": "Rank Log",
 		"distributor": distributor,
 		"old_rank": current_rank,
@@ -180,6 +184,16 @@ def check_and_update_rank(distributor):
 		"date": frappe.utils.today(),
 		"remarks": f"Auto rank update from {current_rank} to {qualified_rank}",
 	}).insert(ignore_permissions=True)
+
+	if change_type == "Promotion":
+		from mlm_multilevel.bonus.rank_bonus import process_rank_advancement_bonus
+
+		process_rank_advancement_bonus(
+			distributor,
+			qualified_rank,
+			rank_log=rank_log,
+			scheme="binary",
+		)
 
 
 # ─── Helpers ──────────────────────────────────────────────────────
@@ -234,3 +248,15 @@ def _check_rank_for_upline(distributor):
 			frappe.db.commit()
 		except Exception:
 			frappe.log_error(frappe.get_traceback(), f"Rank check failed for {member.get('distributor')}")
+
+
+def process_binary_fast_start_bonus(distributor):
+	try:
+		from mlm_multilevel.bonus.fast_start_bonus import process_fast_start_bonus
+
+		process_fast_start_bonus(distributor, scheme="binary")
+	except Exception:
+		frappe.log_error(
+			frappe.get_traceback(),
+			f"Binary Fast Start Bonus error for {distributor}",
+		)

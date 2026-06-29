@@ -1,7 +1,7 @@
 {
  "charts": [],
  "content": "[{\"id\":\"mlm_header_shortcuts\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>MLM Shortcuts</b></span>\",\"col\":12}},{\"id\":\"mlm_shortcut_distributor\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Distributor\",\"col\":3}},{\"id\":\"mlm_shortcut_network_node\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Network Node\",\"col\":3}},{\"id\":\"mlm_shortcut_business_transaction\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Transaction\",\"col\":3}},{\"id\":\"mlm_shortcut_commission_ledger\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Ledger\",\"col\":3}},{\"id\":\"mlm_shortcut_wallet\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Wallet\",\"col\":3}},{\"id\":\"mlm_shortcut_payout_request\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payout Request\",\"col\":3}},{\"id\":\"mlm_shortcut_rank\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rank\",\"col\":3}},{\"id\":\"mlm_shortcut_mlm_settings\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"MLM Settings\",\"col\":3}},{\"id\":\"mlm_spacer_1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mlm_header_all_doctypes\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>All MLM DocTypes</b></span>\",\"col\":12}},{\"id\":\"mlm_card_distributor\",\"type\":\"card\",\"data\":{\"card_name\":\"Distributor\",\"col\":4}},{\"id\":\"mlm_card_network\",\"type\":\"card\",\"data\":{\"card_name\":\"Network\",\"col\":4}},{\"id\":\"mlm_card_transaction\",\"type\":\"card\",\"data\":{\"card_name\":\"Transaction\",\"col\":4}},{\"id\":\"mlm_card_commission\",\"type\":\"card\",\"data\":{\"card_name\":\"Commission\",\"col\":4}},{\"id\":\"mlm_card_wallet\",\"type\":\"card\",\"data\":{\"card_name\":\"Wallet\",\"col\":4}},{\"id\":\"mlm_card_settings\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
- "creation": "2026-05-26 00:00:00.000000",
+ "creation": "2026-05-26 00:00:00",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -265,7 +265,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-26 00:00:00.000000",
+ "modified": "2026-05-27 13:05:23.004382",
  "modified_by": "Administrator",
  "module": "MLM",
  "name": "MLM",

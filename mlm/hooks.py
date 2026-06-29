@@ -266,6 +266,7 @@ scheduler_events = {
 	"cron": {
 		"0 0 1 * *": [
 			"mlm.commission.doctype.commission_period.commission_period.create_commission_period",
+			"mlm.tasks.run_monthly_binary_bonuses",
 		],
 		"0 23 28-31 * *": [
 			"mlm.commission.doctype.commission_period.commission_period.close_commission_period",

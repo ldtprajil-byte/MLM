@@ -23,6 +23,11 @@ class CommissionLedger(Document):
 		self.db_set("wallet_posted", 1, update_modified=False)
 		self.db_set("status", "Paid", update_modified=False)
 
+		if self.commission_type not in ("Matching", "Generation"):
+			from mlm_multilevel.bonus.matching_bonus import process_matching_bonus
+
+			process_matching_bonus(self, scheme="binary")
+
 	def on_cancel(self):
 		if not self.wallet_posted:
 			return

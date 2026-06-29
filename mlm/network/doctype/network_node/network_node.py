@@ -154,18 +154,28 @@ class NetworkNode(Document):
 			"old_leg": None,
 		}
 
-	def sync_distributor_placement(self):
+	def sync_distributor(self):
+		distributor_name = frappe.db.get_value(
+			"UL Distributor",
+			self.distributor,
+			"distributor_name",
+		)
 		frappe.db.set_value(
-			"Distributor",
+			"UL Distributor",
 			self.distributor,
 			{
 				"sponsor": self.sponsor,
 				"placement_parent": self.parent_distributor,
-				"leg_position": self.leg_position,
 			},
 			update_modified=False,
 		)
-
+		frappe.db.set_value(
+			"UL Network Node",
+			self.name,
+			"distributor_name",
+			distributor_name,
+			update_modified=False,
+		)
 	def clear_distributor_placement(self):
 		frappe.db.set_value(
 			"Distributor",

@@ -2,10 +2,11 @@ import frappe
 
 BINARY = "Binary"
 UNILEVEL = "Unilevel"
+MATRIX = "Matrix"
 
 
 def normalize_plan_type(plan_type):
-	if plan_type not in (BINARY, UNILEVEL):
+	if plan_type not in (BINARY, UNILEVEL, MATRIX):
 		frappe.throw(f"Unsupported commission plan type: {frappe.bold(plan_type)}.")
 
 	return plan_type
