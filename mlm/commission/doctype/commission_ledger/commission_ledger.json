@@ -117,18 +117,18 @@
   {
    "fetch_from": "distributor.distributor_name",
    "fieldname": "distributor_name",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Distributor name",
-   "options": "Distributor",
-   "reqd": 1
+   "reqd": 1,
+   "read_only": 1
   },
   {
    "fetch_from": "source_distributor.distributor_name",
    "fieldname": "source_distributor_name",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Source Distributor Name",
-   "options": "Distributor"
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,

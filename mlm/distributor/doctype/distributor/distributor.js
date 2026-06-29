@@ -26,31 +26,15 @@ frappe.ui.form.on("Distributor", {
 				<!-- Stats Row -->
 				<div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:12px;">
 					<div>
-						<div style="font-size:11px;color:#888;">💰 Wallet</div>
-						<div style="font-size:16px;font-weight:700;color:#2e7d32;">
+						<div style="font-size:19px;font-weight:700;color:#111;">💰 Wallet</div>
+						<div style="font-size:10px;font-weight:700;color:#2e7d32;">
 							₹${frm.doc.wallet_balance || 0}
 						</div>
 					</div>
 					<div>
-						<div style="font-size:11px;color:#888;">🏆 Rank</div>
-						<div style="font-size:16px;font-weight:700;color:#1565c0;">
-							<a onclick="frappe.set_route('List','Rank Log',{distributor:'${frm.doc.name}'}); return false;" href="#">
-								${frm.doc.current_rank || "STR"}
-							</a>
-						</div>
+					
 					</div>
-					<div>
-						<div style="font-size:11px;color:#888;">👥 Left</div>
-						<div style="font-size:16px;font-weight:700;">
-							${frm.doc.left_count || 0}
-						</div>
-					</div>
-					<div>
-						<div style="font-size:11px;color:#888;">👥 Right</div>
-						<div style="font-size:16px;font-weight:700;">
-							${frm.doc.right_count || 0}
-						</div>
-					</div>
+					
 				</div>
 
 				<!-- Quick Links Row -->

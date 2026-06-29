@@ -7,106 +7,178 @@
 		h1 { text-align: center; margin-bottom: 30px; }
 		.stats {
 			display: flex;
-			gap: 20px;
+			gap: 16px;
 			margin-bottom: 30px;
-			flex-wrap: wrap;
+			align-items: stretch;
 		}
 		.stat-card {
 			background: white;
 			border-radius: 12px;
-			padding: 20px 30px;
+			padding: 10px 16px;
 			box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-			flex: 1;
 			text-align: center;
 		}
-		.stat-label { font-size: 13px; color: #888; margin-bottom: 8px; }
-		.stat-value { font-size: 28px; font-weight: 700; }
-		.green { color: #2e7d32; }
-		.red { color: #c62828; }
-		.blue { color: #1565c0; }
+		/* 3 value cards — fixed compact width */
+		.stat-card.value-card {
+			flex: 0 0 130px;
+		}
+		/* Filter card takes remaining space */
+		.stat-card.filter-card {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		.stat-label { font-size: 15px; color: #111; margin-bottom: 6px; font-weight: 700; }
+		.stat-value { font-size: 16px; font-weight: 700; color: #111; }
+		.green, .red, .blue { color: #111; }
+
+		/* Filter internals */
+		.filters {
+			display: flex;
+			align-items: flex-end;
+			gap: 10px;
+			margin-top: 10px;
+			justify-content: center;
+			flex-wrap: nowrap;
+		}
+		.filter-field {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 3px;
+		}
+		.filter-field label { font-size: 11px; color: #888; font-weight: 600; }
+		.filter-field input[type="date"],
+		.filter-field select {
+			border: 1px solid #d8d8d8;
+			border-radius: 6px;
+			padding: 5px 6px;
+			font-size: 12px;
+			height: 30px;
+			box-sizing: border-box;
+		}
+		.filter-field input[type="date"] { width: 120px; }
+		.filter-field select { width: 68px; }
+		.btn-filter {
+			background: #1565c0;
+			color: white;
+			border: 1px solid #1565c0;
+			border-radius: 6px;
+			padding: 0 16px;
+			font-size: 12px;
+			font-weight: 600;
+			cursor: pointer;
+			height: 30px;
+			white-space: nowrap;
+		}
+
+		/* Transaction table */
 		.card {
 			background: white;
 			border-radius: 12px;
 			padding: 20px;
 			box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 		}
+		.transaction-header { margin-bottom: 15px; }
+		.transaction-header h3 { margin: 0; }
 		table { width: 100%; border-collapse: collapse; }
 		th { background: #f0f0f0; padding: 12px; text-align: left; font-size: 13px; }
 		td { padding: 12px; border-bottom: 1px solid #eee; font-size: 13px; }
-		.badge {
-			padding: 4px 10px;
-			border-radius: 20px;
-			font-size: 12px;
-			display: inline-block;
-		}
+		.badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; display: inline-block; }
 		.badge-credit { background: #e8f5e9; color: #2e7d32; }
-		.badge-debit { background: #ffebee; color: #c62828; }
+		.badge-debit  { background: #ffebee; color: #c62828; }
 		.amount-credit { color: #2e7d32; font-weight: 600; }
-		.amount-debit { color: #c62828; font-weight: 600; }
+		.amount-debit  { color: #c62828; font-weight: 600; }
 		.error { text-align: center; color: red; font-size: 18px; margin-top: 50px; }
 	</style>
 </head>
 <body>
 
-	<h1>💰 My Wallet</h1>
+	<h1>My Wallet</h1>
 
 	{% if error %}
 		<div class="error">{{ error }}</div>
 	{% else %}
 
-	<div class="stats">
-		<div class="stat-card">
-			<div class="stat-label">Available Balance</div>
-			<div class="stat-value green">₹{{ balance }}</div>
+		<div class="stats">
+			<div class="stat-card value-card">
+				<div class="stat-label">Available Balance</div>
+				<div class="stat-value green">₹{{ balance }}</div>
+			</div>
+			<div class="stat-card value-card">
+				<div class="stat-label">Total Credited</div>
+				<div class="stat-value blue">₹{{ total_credit }}</div>
+			</div>
+			<div class="stat-card value-card">
+				<div class="stat-label">Total Debited</div>
+				<div class="stat-value red">₹{{ total_debit }}</div>
+			</div>
+			<div class="stat-card filter-card">
+				
+				<form class="filters" method="get">
+					<input type="hidden" name="distributor" value="{{ distributor }}">
+					<div class="filter-field">
+						<label for="date_from">From</label>
+						<input id="date_from" type="date" name="date_from" value="{{ filter_date_from }}">
+					</div>
+					<div class="filter-field">
+						<label for="date_to">To</label>
+						<input id="date_to" type="date" name="date_to" value="{{ filter_date_to }}">
+					</div>
+					<div class="filter-field">
+						<label for="type">Type</label>
+						<select id="type" name="type">
+							<option value="" {% if not filter_type %}selected{% endif %}>All</option>
+							<option value="Credit" {% if filter_type == "Credit" %}selected{% endif %}>Credit</option>
+							<option value="Debit"  {% if filter_type == "Debit"  %}selected{% endif %}>Debit</option>
+						</select>
+					</div>
+					<button class="btn-filter" type="submit">Filter</button>
+				</form>
+			</div>
 		</div>
-		<div class="stat-card">
-			<div class="stat-label">Total Credited</div>
-			<div class="stat-value blue">₹{{ total_credit }}</div>
-		</div>
-		<div class="stat-card">
-			<div class="stat-label">Total Debited</div>
-			<div class="stat-value red">₹{{ total_debit }}</div>
-		</div>
-	</div>
 
-	<div class="card">
-		<h3 style="margin-bottom:15px;">Transaction History</h3>
-		{% if transactions %}
-		<table>
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Type</th>
-					<th>Amount</th>
-					<th>Balance Before</th>
-					<th>Balance After</th>
-					<th>Remarks</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for t in transactions %}
-				<tr>
-					<td>{{ t.posting_date }}</td>
-					<td>
-						<span class="badge badge-{{ t.transaction_type.lower() }}">
-							{{ t.transaction_type }}
-						</span>
-					</td>
-					<td class="amount-{{ t.transaction_type.lower() }}">
-						{% if t.transaction_type == "Credit" %}+{% else %}-{% endif %}
-						₹{{ t.amount }}
-					</td>
-					<td>₹{{ t.balance_before }}</td>
-					<td>₹{{ t.balance_after }}</td>
-					<td>{{ t.remarks or "-" }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		{% else %}
-			<p style="text-align:center; color:#888;">No transactions yet.</p>
-		{% endif %}
-	</div>
+		<div class="card">
+			<div class="transaction-header">
+				<h3>Transaction History</h3>
+			</div>
+			{% if transactions %}
+			<table>
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Type</th>
+						<th>Amount</th>
+						<th>Balance Before</th>
+						<th>Balance After</th>
+						<th>Remarks</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for t in transactions %}
+					<tr>
+						<td>{{ t.posting_date }}</td>
+						<td>
+							<span class="badge badge-{{ t.transaction_type.lower() }}">
+								{{ t.transaction_type }}
+							</span>
+						</td>
+						<td class="amount-{{ t.transaction_type.lower() }}">
+							{% if t.transaction_type == "Credit" %}+{% else %}-{% endif %}
+							₹{{ t.amount }}
+						</td>
+						<td>₹{{ t.balance_before }}</td>
+						<td>₹{{ t.balance_after }}</td>
+						<td>{{ t.remarks or "-" }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+				<p style="text-align:center; color:#888;">No transactions yet.</p>
+			{% endif %}
+		</div>
 
 	{% endif %}
 

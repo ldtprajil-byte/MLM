@@ -190,6 +190,8 @@
 
 		.chart.tall { height: 285px; }
 		.chart.small { height: 185px; }
+		.chart.commission-mix-chart { height: 330px; }
+		.chart.wallet-balance-chart { height: 280px; }
 
 		.chart svg {
 			width: 100%;
@@ -435,17 +437,10 @@
 			<div class="panel-head">
 				<div>
 					<h2>Commission Mix</h2>
-					<div class="sub">Income split by commission type</div>
+					<div class="sub">Direct and binary commission split</div>
 				</div>
 			</div>
-			<div class="chart" id="commission-mix">
-				<div class="donut-center">
-					<div>
-						<strong>₹{{ total_commission }}</strong>
-						<span>Total</span>
-					</div>
-				</div>
-			</div>
+			<div class="chart commission-mix-chart" id="commission-mix"></div>
 			<div class="legend" id="commission-mix-legend"></div>
 		</div>
 	</section>
@@ -470,10 +465,10 @@
 		<div class="panel span-5">
 			<div class="panel-head">
 				<div>
-					<h2>Network Balance</h2>
+					<div class="panel-total">Network Nodes</div>
 					<div class="sub">Left and right leg comparison</div>
 				</div>
-				<div class="panel-total">{{ total_downline }}</div>
+				<h4>No of People: {{ total_downline }}</h4>
 			</div>
 			<div id="network-bars" class="chart small"></div>
 			{% set total_leg = left_count + right_count %}
@@ -498,19 +493,15 @@
 		<div class="panel span-6">
 			<div class="panel-head">
 				<div>
-					<h2>Wallet Mix</h2>
+					<h2>Wallet Balance</h2>
 					<div class="sub">Credit, debit and available balance</div>
 				</div>
 			</div>
-			<div id="wallet-mix" class="chart">
-				<div class="donut-center">
-					<div>
-						<strong>₹{{ balance }}</strong>
-						<span>Balance</span>
-					</div>
-				</div>
+			<div id="wallet-flow" class="chart wallet-balance-chart"></div>
+			<div class="legend">
+				<span class="legend-item"><span class="swatch" style="--color: var(--green);"></span>Credit</span>
+				<span class="legend-item"><span class="swatch" style="--color: var(--red);"></span>Debit</span>
 			</div>
-			<div class="legend" id="wallet-mix-legend"></div>
 		</div>
 
 		<div class="panel span-6">
@@ -521,24 +512,11 @@
 				</div>
 			</div>
 			<div id="commission-status" class="chart"></div>
+			<div class="legend" id="commission-status-legend"></div>
 		</div>
 	</section>
 
-	<section class="grid">
-		<div class="panel span-12">
-			<div class="panel-head">
-				<div>
-					<h2>Wallet Cashflow</h2>
-					<div class="sub">Credit and debit flow over the last 14 days</div>
-				</div>
-			</div>
-			<div id="wallet-flow" class="chart"></div>
-			<div class="legend">
-				<span class="legend-item"><span class="swatch" style="--color: var(--green);"></span>Credit</span>
-				<span class="legend-item"><span class="swatch" style="--color: var(--red);"></span>Debit</span>
-			</div>
-		</div>
-	</section>
+
 
 	<section class="grid">
 		<div class="panel span-6">
@@ -705,6 +683,7 @@
 
 	function renderLineChart(id, labels, series, options) {
 		const target = document.getElementById(id);
+		if (!target) return;
 		const width = 760;
 		const height = options.height || 260;
 		const padding = 52;
@@ -770,6 +749,7 @@
 
 	function renderDonut(id, labels, values, palette, legendId) {
 		const target = document.getElementById(id);
+		if (!target) return;
 		const center = target.querySelector(".donut-center");
 		const total = values.reduce((sum, value) => sum + Number(value || 0), 0);
 		let angleCursor = 0;
@@ -817,46 +797,189 @@
 		}
 	}
 
-	function renderBars(id, labels, values, palette, formatter) {
+	function renderBars(id, labels, values, palette, formatter, options = {}) {
 		const target = document.getElementById(id);
+		if (!target) return;
 		const width = 620;
 		const height = 245;
-		const padding = 38;
+		const showAxes = options.showAxes || false;
+		const padding = showAxes
+			? {top: 28, right: 26, bottom: 58, left: 68}
+			: {top: 38, right: 38, bottom: 38, left: 38};
 		const max = Math.max(...values.map(value => Number(value || 0)), 1);
-		const available = width - padding * 2;
+		const chartWidth = width - padding.left - padding.right;
+		const chartHeight = height - padding.top - padding.bottom;
+		const available = chartWidth;
 		const barWidth = Math.min(88, available / labels.length - 18);
 		const step = available / labels.length;
+		const grid = showAxes ? [0, 1, 2, 3].map(index => {
+			const y = padding.top + index * (chartHeight / 3);
+			const value = max - (max * index / 3);
+			return `
+				<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="${colors.line}" />
+				<text x="${padding.left - 10}" y="${y + 4}" text-anchor="end" font-size="10" fill="${colors.muted}">${compactNumber(value)}</text>
+			`;
+		}).join("") : "";
 
 		const bars = values.map((value, index) => {
-			const h = (Number(value || 0) / max) * (height - padding * 2);
-			const x = padding + index * step + (step - barWidth) / 2;
-			const y = height - padding - h;
+			const h = (Number(value || 0) / max) * chartHeight;
+			const x = padding.left + index * step + (step - barWidth) / 2;
+			const y = padding.top + chartHeight - h;
 			return `
 				<g>
 					<rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="7" fill="${palette[index % palette.length]}" />
 					<text x="${x + barWidth / 2}" y="${Math.max(y - 8, 14)}" text-anchor="middle" font-size="12" font-weight="700" fill="${colors.ink}">${formatter(value)}</text>
-					<text x="${x + barWidth / 2}" y="${height - 12}" text-anchor="middle" font-size="11" fill="${colors.muted}">${labels[index]}</text>
+					${options.hideCategoryLabels ? "" : `<text x="${x + barWidth / 2}" y="${padding.top + chartHeight + 20}" text-anchor="middle" font-size="11" fill="${colors.muted}">${labels[index]}</text>`}
+				</g>
+			`;
+		}).join("");
+		const axes = showAxes ? `
+			<line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + chartHeight}" stroke="${colors.line}" />
+			<line x1="${padding.left}" y1="${padding.top + chartHeight}" x2="${width - padding.right}" y2="${padding.top + chartHeight}" stroke="${colors.line}" />
+			<text x="${padding.left + chartWidth / 2}" y="${height - 12}" text-anchor="middle" font-size="11" font-weight="700" fill="${colors.muted}">${options.xAxisLabel || ""}</text>
+			<text x="16" y="${padding.top + chartHeight / 2}" transform="rotate(-90 16 ${padding.top + chartHeight / 2})" text-anchor="middle" font-size="11" font-weight="700" fill="${colors.muted}">${options.yAxisLabel || ""}</text>
+		` : `<line x1="${padding.left}" y1="${padding.top + chartHeight}" x2="${width - padding.right}" y2="${padding.top + chartHeight}" stroke="${colors.line}" />`;
+
+		target.innerHTML = `
+			<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Bar chart">
+				${grid}
+				${axes}
+				${bars}
+			</svg>
+		`;
+
+		if (options.legendId) {
+			document.getElementById(options.legendId).innerHTML = labels.map((label, index) => `
+				<span class="legend-item"><span class="swatch" style="--color: ${palette[index % palette.length]};"></span>${label}</span>
+			`).join("");
+		}
+	}
+
+	function renderVerticalMixBars(id, labels, values, palette, formatter, legendId) {
+		const target = document.getElementById(id);
+		if (!target) return;
+		const width = 560;
+		const height = 330;
+		const padding = {top: 48, right: 34, bottom: 66, left: 46};
+		const chartWidth = width - padding.left - padding.right;
+		const chartHeight = height - padding.top - padding.bottom;
+		const max = Math.max(...values.map(value => Number(value || 0)), 1);
+		const step = labels.length ? chartWidth / labels.length : 0;
+		const barWidth = Math.min(112, Math.max(68, step * 0.5));
+		const total = values.reduce((sum, value) => sum + Number(value || 0), 0);
+
+		if (!labels.length || !total) {
+			target.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Vertical bar chart"><text x="${width / 2}" y="${height / 2}" text-anchor="middle" font-size="13" fill="${colors.muted}">No data</text></svg>`;
+		} else {
+			const bars = values.map((value, index) => {
+				const number = Number(value || 0);
+				const barHeight = (number / max) * chartHeight;
+				const x = padding.left + index * step + (step - barWidth) / 2;
+				const y = padding.top + chartHeight - barHeight;
+				const percent = total ? Math.round((number / total) * 100) : 0;
+
+				return `
+					<g>
+						<rect x="${x}" y="${padding.top}" width="${barWidth}" height="${chartHeight}" rx="8" fill="#e7edf4" />
+						<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="8" fill="${palette[index % palette.length]}">
+							<title>${labels[index]}: ${formatter(number)}</title>
+						</rect>
+						<text x="${x + barWidth / 2}" y="${Math.max(y - 10, 16)}" text-anchor="middle" font-size="13" font-weight="800" fill="${colors.ink}">${formatter(number)}</text>
+						<text x="${x + barWidth / 2}" y="${height - 35}" text-anchor="middle" font-size="13" font-weight="700" fill="${colors.ink}">${labels[index]}</text>
+						<text x="${x + barWidth / 2}" y="${height - 17}" text-anchor="middle" font-size="11" fill="${colors.muted}">${percent}%</text>
+					</g>
+				`;
+			}).join("");
+
+			target.innerHTML = `
+				<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Vertical bar chart">
+					<line x1="${padding.left}" y1="${padding.top + chartHeight}" x2="${width - padding.right}" y2="${padding.top + chartHeight}" stroke="${colors.line}" />
+					${bars}
+				</svg>
+			`;
+		}
+
+		if (legendId) {
+			document.getElementById(legendId).innerHTML = labels.map((label, index) => `
+				<span class="legend-item"><span class="swatch" style="--color: ${palette[index % palette.length]};"></span>${label}</span>
+			`).join("");
+		}
+	}
+
+	function renderTimelineBars(id, labels, series, formatter) {
+		const target = document.getElementById(id);
+		if (!target) return;
+		if (!labels.length) {
+			target.innerHTML = `<svg viewBox="0 0 760 280" role="img" aria-label="Wallet timeline bar chart"><text x="380" y="144" text-anchor="middle" font-size="13" fill="${colors.muted}">No data</text></svg>`;
+			return;
+		}
+		const width = 760;
+		const height = 280;
+		const padding = {top: 30, right: 30, bottom: 60, left: 66};
+		const chartWidth = width - padding.left - padding.right;
+		const chartHeight = height - padding.top - padding.bottom;
+		const max = maxValue(series.map(item => item.values));
+		const step = chartWidth / labels.length;
+		const groupGap = Math.min(16, step * 0.18);
+		const barWidth = Math.max(7, Math.min(22, (step - groupGap) / series.length));
+
+		const grid = [0, 1, 2, 3].map(index => {
+			const y = padding.top + index * (chartHeight / 3);
+			const value = max - (max * index / 3);
+			return `
+				<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="${colors.line}" />
+				<text x="${padding.left - 10}" y="${y + 4}" text-anchor="end" font-size="10" fill="${colors.muted}">${compactNumber(value)}</text>
+			`;
+		}).join("");
+
+		const bars = labels.map((label, labelIndex) => {
+			const groupWidth = barWidth * series.length;
+			const groupX = padding.left + labelIndex * step + (step - groupWidth) / 2;
+			const xLabel = shortDate(label);
+			const seriesBars = series.map((item, seriesIndex) => {
+				const value = Number(item.values[labelIndex] || 0);
+				const h = (value / max) * chartHeight;
+				const x = groupX + seriesIndex * barWidth;
+				const y = padding.top + chartHeight - h;
+
+				return `
+					<rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="4" fill="${item.color}">
+						<title>${item.name} ${label}: ${formatter(value)}</title>
+					</rect>
+				`;
+			}).join("");
+
+			return `
+				<g>
+					${seriesBars}
+					<line x1="${padding.left + labelIndex * step + step / 2}" y1="${padding.top + chartHeight}" x2="${padding.left + labelIndex * step + step / 2}" y2="${padding.top + chartHeight + 5}" stroke="${colors.line}" />
+					<text x="${padding.left + labelIndex * step + step / 2}" y="${height - 31}" text-anchor="middle" font-size="10" fill="${colors.muted}">${xLabel}</text>
 				</g>
 			`;
 		}).join("");
 
 		target.innerHTML = `
-			<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Bar chart">
-				<line x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke="${colors.line}" />
+			<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Wallet timeline bar chart">
+				${grid}
+				<line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + chartHeight}" stroke="${colors.line}" />
+				<line x1="${padding.left}" y1="${padding.top + chartHeight}" x2="${width - padding.right}" y2="${padding.top + chartHeight}" stroke="${colors.line}" />
 				${bars}
+				<text x="${padding.left + chartWidth / 2}" y="${height - 10}" text-anchor="middle" font-size="11" font-weight="700" fill="${colors.muted}">Timeline</text>
+				<text x="15" y="${padding.top + chartHeight / 2}" transform="rotate(-90 15 ${padding.top + chartHeight / 2})" text-anchor="middle" font-size="11" font-weight="700" fill="${colors.muted}">Amount</text>
 			</svg>
 		`;
 	}
 
 	renderLineChart("income-trend", data.incomeLabels, [
 		{name: "Income", values: data.incomeValues, color: colors.green, fill: "rgba(22,128,60,0.14)", width: 4}
-	], {label: "Income trend", height: 300, area: true});
+	], {label: "Earning trend", height: 300, area: true});
 
-	renderDonut(
+	renderVerticalMixBars(
 		"commission-mix",
 		data.commissionTypeLabels,
 		data.commissionTypeValues,
-		[colors.cyan, colors.orange, colors.violet, colors.green, colors.blue],
+		[colors.cyan, colors.orange],
+		value => currency.format(value || 0),
 		"commission-mix-legend"
 	);
 
@@ -868,20 +991,18 @@
 
 	renderBars("network-bars", data.networkLabels, data.networkValues, [colors.blue, colors.violet], value => String(value || 0));
 
-	renderDonut(
-		"wallet-mix",
-		data.walletMixLabels,
-		data.walletMixValues,
-		[colors.green, colors.red, colors.blue],
-		"wallet-mix-legend"
-	);
+	renderBars("commission-status", data.commissionStatusLabels, data.commissionStatusValues, [colors.green, colors.orange], value => currency.format(value || 0), {
+		showAxes: true,
+		xAxisLabel: "Status",
+		yAxisLabel: "Amount",
+		hideCategoryLabels: true,
+		legendId: "commission-status-legend"
+	});
 
-	renderBars("commission-status", data.commissionStatusLabels, data.commissionStatusValues, [colors.green, colors.orange], value => currency.format(value || 0));
-
-	renderLineChart("wallet-flow", data.walletLabels, [
+	renderTimelineBars("wallet-flow", data.walletLabels, [
 		{name: "Credit", values: data.walletCredit, color: colors.green, width: 4},
 		{name: "Debit", values: data.walletDebit, color: colors.red, width: 4}
-	], {label: "Wallet cashflow", height: 245});
+	], value => currency.format(value || 0));
 </script>
 
 {% endif %}
