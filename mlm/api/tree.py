@@ -4,14 +4,17 @@ import frappe
 @frappe.whitelist()
 def get_tree():
 
-	nodes = frappe.get_all(
-		"Network Node",
-		fields=[
-			"name",
-			"distributor",
-			"parent_distributor",
-			"leg_position"
-		]
-	)
+    nodes = frappe.db.sql("""
+        SELECT
+            nn.name,
+            nn.distributor,
+            nn.parent_distributor,
+            nn.leg_position,
+            d.distributor_name
+        FROM
+            `tabNetwork Node` nn
+        LEFT JOIN
+            `tabDistributor` d ON d.name = nn.distributor
+    """, as_dict=True)
 
-	return nodes
+    return nodes

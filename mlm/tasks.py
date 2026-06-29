@@ -12,8 +12,28 @@ def run_daily_rank_check():
 		try:
 			check_and_update_rank(distributor)
 			frappe.db.commit()
-		except Exception:
-			frappe.log_error(frappe.get_traceback(), f"Rank check failed for {distributor}")
+			except Exception:
+				frappe.log_error(frappe.get_traceback(), f"Rank check failed for {distributor}")
+
+	run_daily_binary_bonuses()
+
+
+def run_daily_binary_bonuses():
+	from mlm_multilevel.bonus.fast_start_bonus import sweep_fast_start_bonuses
+
+	sweep_fast_start_bonuses(scheme="binary")
+
+
+def run_monthly_binary_bonuses():
+	from mlm_multilevel.bonus.car_bonus import process_monthly_car_bonus
+	from mlm_multilevel.bonus.contest_bonus import process_contest_bonus
+	from mlm_multilevel.bonus.generation_bonus import process_monthly_generation_bonus
+	from mlm_multilevel.bonus.lifestyle_bonus import process_monthly_lifestyle_bonus
+
+	process_monthly_car_bonus(scheme="binary")
+	process_monthly_lifestyle_bonus(scheme="binary")
+	process_monthly_generation_bonus(scheme="binary")
+	process_contest_bonus(scheme="binary")
 
 
 def run_weekly_roi_payout():

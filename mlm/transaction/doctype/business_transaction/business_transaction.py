@@ -21,6 +21,7 @@ class BusinessTransaction(Document):
 		check_commissions_not_withdrawn(self.name)
 		self.create_volume_ledger(is_reversal=True)
 		self.cancel_commission_ledgers()
+		self.cancel_bonus_ledgers()
 		self.db_set("status", "Cancelled", update_modified=False)
 
 	def on_trash(self):
@@ -74,6 +75,24 @@ class BusinessTransaction(Document):
 		)
 		for ledger in ledgers:
 			doc = frappe.get_doc("Commission Ledger", ledger)
+			doc.flags.ignore_permissions = True
+			doc.cancel()
+
+	def cancel_bonus_ledgers(self):
+		if not frappe.db.exists("DocType", "Bonus Ledger"):
+			return
+
+		ledgers = frappe.get_all(
+			"Bonus Ledger",
+			filters={
+				"source_transaction_type": "Business Transaction",
+				"source_transaction": self.name,
+				"docstatus": 1,
+			},
+			pluck="name",
+		)
+		for ledger in ledgers:
+			doc = frappe.get_doc("Bonus Ledger", ledger)
 			doc.flags.ignore_permissions = True
 			doc.cancel()
 
